@@ -8,7 +8,7 @@ defmodule ProblemF do
   Pulls a value off
   """
   def pop() do
-    ref = make_ref()
+    ref = Process.monitor(__MODULE__)
     GenServer.cast(__MODULE__, {:pop, self(), ref})
     ref
   end

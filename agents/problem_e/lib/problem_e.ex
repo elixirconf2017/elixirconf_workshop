@@ -24,11 +24,9 @@ defmodule ProblemE do
   end
 
   def handle_call({:pop, key}, _from, state) do
-    {val, state} = Map.pop(state, key, 0)
-    if state == %{} do
-      {:stop, :normal, val, state}
-    else
-      {:reply, val, state}
-    end
+    state
+    |> Map.pop(key, 0)
+    |> (fn {val, _state} -> val end).()
+    |> (fn val -> {:reply, val, state} end).()
   end
 end
